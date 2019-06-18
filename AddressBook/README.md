@@ -1,69 +1,51 @@
-Symfony Standard Edition
+Exercice Société
 ========================
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+### Créer un contrôleur `SocieteController`
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+Utiliser la commande `generate:controller`
 
-What's inside?
---------------
+Ajouter 2 méthodes dans `SocieteController`
+* listAction
+* showAction
 
-The Symfony Standard Edition is configured with the following defaults:
+Utiliser les URLs suivantes
 
-  * An AppBundle you can use to start coding;
+* listAction -> /societes
+* showAction -> /societes/123
 
-  * Twig as the only configured template engine;
+Faire en sorte que 123 soit paramétrable
 
-  * Doctrine ORM/DBAL;
+### Dans `app/Resources/view/_navbar.html.twig`
 
-  * Swiftmailer;
+Ajouter 1 lien vers l'action list de société dans le menu
 
-  * Annotations enabled for everything.
+### Créer l'entité `App\Entity\Societe`
 
-It comes pre-configured with the following bundles:
+Utiliser la commande `doctrine:generate:entity`
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+Par exemple avec 2 propriétés : `nom`, `ville`...
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+### Générer la table societe
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+Utiliser la commande `doctrine:schema:update --dump-sql` 
+pour vérifier puis `doctrine:schema:update --force` pour la créer dans MySQL
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
+### Ajouter des sociétés via phpMyAdmin
 
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
+[http://localhost/phpmyadmin](http://localhost/phpmyadmin)
 
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
+### Créer du faux texte dans les 2 templates
 
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
+### Appeler les méthodes find et findAll de Doctrine puis remplacer le faux-text
 
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
+Exercice Contact Update
+========================
 
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/2.8/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/2.8/doctrine.html
-[8]:  https://symfony.com/doc/2.8/templating.html
-[9]:  https://symfony.com/doc/2.8/security.html
-[10]: https://symfony.com/doc/2.8/email.html
-[11]: https://symfony.com/doc/2.8/logging.html
-[12]: https://symfony.com/doc/2.8/assetic/asset_management.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
+* Ajouter manuellement une méthode `updateAction` dans ContactController
+* Créer un template twig associé et appeler ce template depuis l'action
+* Ajouter une route sous la forme `/contacts/123/update`
+* Vérifier que la page soit accessible
+* L'update est un mélange de `showAction` et `createAction`, il faut récupérer le contact avec le `Repository`
+et le passer au formulaire avec la méthode `setData`
+* Le reste du code est très similaire à createAction (même méthode `persist` du `Manager`)
