@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ contact.prenom }} {{ contact.nom }} - AddressBook{% endblock %}
+
+{% block body %}
+
+    <h2>{{ contact.prenom }} {{ contact.nom }}</h2>
+
+    {% if contact.email is defined %}
+    <p>Email : {{ contact.email }}</p>
+    {% endif %}
+
+{% endblock %}
