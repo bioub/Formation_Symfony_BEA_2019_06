@@ -1,7 +1,33 @@
 {% extends "base.html.twig" %}
+{# TEST #}
+{% form_theme contactForm 'bootstrap_3_layout.html.twig' %}
 
-{% block title %}AppBundle:Contact:create{% endblock %}
+{% block title %}Ajouter un contact - AddressBook{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Contact:create page</h1>
+    <h2>Ajouter un contact</h2>
+
+    {{ form_start(contactForm, {attr: {novalidate: 'novalidate'}}) }}
+        {{ form_row(contactForm.prenom) }}
+{#        <div class="form-group">#}
+{#            {{ form_label(contactForm.prenom) }}#}
+{#            {{ form_widget(contactForm.prenom, {attr: {class: 'form-control'}}) }}#}
+{#            {{ form_errors(contactForm.prenom) }}#}
+{#        </div>#}
+        {{ form_row(contactForm.nom) }}
+        {{ form_row(contactForm.email) }}
+        <button class="btn btn-primary">Ajouter</button>
+    {{ form_end(contactForm) }}
+
 {% endblock %}
+
+{#
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/framework/css/body.css') }}">
+    <style>
+        label {
+            width: 80px;
+        }
+    </style>
+{% endblock %}
+#}

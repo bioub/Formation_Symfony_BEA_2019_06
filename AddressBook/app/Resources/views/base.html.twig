@@ -16,6 +16,7 @@
         {{ include('_navbar.html.twig') }}
 
         <div class="container-fluid mt-3">
+            {{ include('_flash.html.twig') }}
             {% block body %}{% endblock %}
             <hr>
             {{ date() | date('d/m/Y') }}

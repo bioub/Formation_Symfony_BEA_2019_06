@@ -2,8 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Contact;
+use AppBundle\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/contacts")
@@ -15,18 +18,9 @@ class ContactController extends Controller
      */
     public function listAction()
     {
-        $contacts = [
-            [
-                'id' => 123,
-                'prenom' => 'Romain',
-                'nom' => 'Bohdanowicz',
-            ],
-            [
-                'id' => 456,
-                'prenom' => 'Eric',
-                'nom' => 'Martin',
-            ],
-        ];
+        $repo = $this->getDoctrine()->getRepository(Contact::class); // Repository pour les lectures
+
+        $contacts = $repo->findBy([], ['prenom' => 'ASC'], 100, 0);
 
         return $this->render('contact/list.html.twig', array(
             'contacts' => $contacts
@@ -36,10 +30,27 @@ class ContactController extends Controller
     /**
      * @Route("/add/")
      */
-    public function createAction()
+    public function createAction(Request $request)
     {
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Contact $contact */
+            $contact = $form->getData();
+
+            $em = $this->getDoctrine()->getManager(); // Manager pour les écritures
+            $em->persist($contact);
+            $em->flush();
+
+            $this->addFlash('success', $contact->getPrenom() . ' a bien été créé');
+
+            // return $this->redirectToRoute('app_contact_show', ['id' => $contact->getId()]);
+            return $this->redirectToRoute('app_contact_list');
+        }
+
         return $this->render('contact/create.html.twig', array(
-            // ...
+            'contactForm' => $form->createView(),
         ));
     }
 
@@ -48,13 +59,16 @@ class ContactController extends Controller
      */
     public function showAction($id)
     {
-        $romain = [
-            'prenom' => 'Romain',
-            'nom' => 'Bohdanowicz',
-        ];
+        $repo = $this->getDoctrine()->getRepository(Contact::class);
+
+        $contact = $repo->find($id);
+
+        if (!$contact) {
+            throw $this->createNotFoundException('Contact not found');
+        }
 
         return $this->render('contact/show.html.twig', [
-            'contact' => $romain,
+            'contact' => $contact,
         ]);
     }
 

@@ -6,7 +6,7 @@
 
     <h2>{{ contact.prenom }} {{ contact.nom }}</h2>
 
-    {% if contact.email is defined %}
+    {% if contact.email %}
     <p>Email : {{ contact.email }}</p>
     {% endif %}
 
