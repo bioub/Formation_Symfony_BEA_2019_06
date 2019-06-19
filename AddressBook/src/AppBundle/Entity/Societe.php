@@ -28,19 +28,11 @@ class Societe
      */
     private $nom;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ville", type="string", length=80)
-     */
-    private $ville;
 
     /**
-     * @var string
-     * @ORM\Column(name="code_postal", length=8)
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Address", cascade={"persist"})
      */
-    protected $cp;
-
+    protected $adresse;
 
     /**
      * Get id
@@ -76,56 +68,34 @@ class Societe
         return $this->nom;
     }
 
-    /**
-     * Set ville
-     *
-     * @param string $ville
-     *
-     * @return Societe
-     */
-    public function setVille($ville)
-    {
-        $this->ville = $ville;
 
-        return $this;
-    }
-
-    /**
-     * Get ville
-     *
-     * @return string
-     */
-    public function getVille()
-    {
-        return $this->ville;
-    }
-
-    /**
-     * Set cp
-     *
-     * @param string $cp
-     *
-     * @return Societe
-     */
-    public function setCp($cp)
-    {
-        $this->cp = $cp;
-
-        return $this;
-    }
-
-    /**
-     * Get cp
-     *
-     * @return string
-     */
-    public function getCp()
-    {
-        return $this->cp;
-    }
 
     public function __toString()
     {
         return $this->nom;
+    }
+
+    /**
+     * Set adresse
+     *
+     * @param \AppBundle\Entity\Address $adresse
+     *
+     * @return Societe
+     */
+    public function setAdresse(\AppBundle\Entity\Address $adresse = null)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return \AppBundle\Entity\Address
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
     }
 }

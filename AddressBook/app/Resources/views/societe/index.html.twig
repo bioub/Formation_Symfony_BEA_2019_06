@@ -18,8 +18,8 @@
             <tr>
                 <td><a href="{{ path('app_societe_show', { 'id': societe.id }) }}">{{ societe.id }}</a></td>
                 <td>{{ societe.nom }}</td>
-                <td>{{ societe.ville }}</td>
-                <td>{{ societe.cp }}</td>
+                <td>{{ societe.adresse ? societe.adresse.ville }}</td>
+                <td>{{ societe.adresse ? societe.adresse.cp }}</td>
                 <td>
                     <ul>
                         <li>

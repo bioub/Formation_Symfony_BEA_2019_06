@@ -2,10 +2,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Contact;
 use AppBundle\Entity\Societe;
+use AppBundle\Form\SocieteType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Societe controller.
@@ -31,6 +34,33 @@ class SocieteController extends Controller
         ));
     }
 
+
+    /**
+     * @Route("/add")
+     */
+    public function createAction(Request $request)
+    {
+        $form = $this->createForm(SocieteType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Societe $entity */
+            $entity = $form->getData();
+
+            $em = $this->getDoctrine()->getManager(); // Manager pour les écritures
+            $em->persist($entity);
+            $em->flush();
+
+            $this->addFlash('success', $entity->getNom() . ' a bien été créé');
+
+            // return $this->redirectToRoute('app_contact_show', ['id' => $contact->getId()]);
+            return $this->redirectToRoute('app_societe_index');
+        }
+
+        return $this->render('societe/create.html.twig', array(
+            'societeForm' => $form->createView(),
+        ));
+    }
     /**
      * Finds and displays a societe entity.
      *
@@ -45,4 +75,6 @@ class SocieteController extends Controller
             'societe' => $societe,
         ));
     }
+
+
 }

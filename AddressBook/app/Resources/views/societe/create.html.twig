@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(societeForm) }}
+
+    {{ form_row(societeForm.nom) }}
+    {{ form_row(societeForm.adresse) }}
+
+    <button>Ajouter</button>
+    {{ form_end(societeForm) }}
+{% endblock %}
