@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -36,7 +37,8 @@ class ContactType extends AbstractType
                     'M.' => 'Monsieur',
                     'Mme.' => 'Madame'
                 ]
-            ]);
+            ])
+            ->add('societe');
     }
 
     /**

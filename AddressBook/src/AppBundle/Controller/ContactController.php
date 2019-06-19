@@ -66,7 +66,7 @@ class ContactController extends Controller
         // FQCN Fully Qualified ClassName : nom complet de la classe avec les namespace
         $repo = $this->getDoctrine()->getRepository(Contact::class);
 
-        $contact = $repo->find($id);
+        $contact = $repo->findWithSociete($id);
 
         if (!$contact) {
             throw $this->createNotFoundException('Contact not found');

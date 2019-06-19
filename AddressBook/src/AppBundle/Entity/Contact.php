@@ -69,6 +69,13 @@ class Contact
      */
     protected $hobbies;
 
+    // @ORM\ManyToOne(targetEntity="AppBundle\Entity\Societe", fetch="EAGER")
+    /**
+     * @var Societe
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Societe")
+     */
+    protected $societe;
+
     /**
      * Get id
      *
@@ -223,5 +230,29 @@ class Contact
     public function getHobbies()
     {
         return $this->hobbies;
+    }
+
+    /**
+     * Set societe
+     *
+     * @param \AppBundle\Entity\Societe $societe
+     *
+     * @return Contact
+     */
+    public function setSociete(\AppBundle\Entity\Societe $societe = null)
+    {
+        $this->societe = $societe;
+
+        return $this;
+    }
+
+    /**
+     * Get societe
+     *
+     * @return \AppBundle\Entity\Societe
+     */
+    public function getSociete()
+    {
+        return $this->societe;
     }
 }

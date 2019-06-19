@@ -13,4 +13,20 @@ class ContactRepository extends \Doctrine\ORM\EntityRepository
     public function findByPrenom($prenom) {
        return $this->findBy(['prenom' => $prenom]);
     }
+
+    public function findWithSociete($id)
+    {
+        // 3 façon d'écrire la requete
+        // - SQL
+        // - QueryBuilder
+        // - DQL (HQL Hibernate)
+
+        $dql = "SELECT c, s FROM \AppBundle\Entity\Contact c 
+                LEFT JOIN c.societe s
+                WHERE c.id = :id";
+
+        return $this->_em->createQuery($dql)
+                ->setParameter('id', $id)
+                ->getOneOrNullResult();
+    }
 }

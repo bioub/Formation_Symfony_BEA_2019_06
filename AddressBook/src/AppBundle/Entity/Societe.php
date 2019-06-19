@@ -123,4 +123,9 @@ class Societe
     {
         return $this->cp;
     }
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
 }

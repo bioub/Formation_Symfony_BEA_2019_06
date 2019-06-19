@@ -10,4 +10,8 @@
     <p>Email : {{ contact.email }}</p>
     {% endif %}
 
+    {% if contact.societe %}
+        <p>Société : {{ contact.societe.nom }}</p>
+    {% endif %}
+
 {% endblock %}
