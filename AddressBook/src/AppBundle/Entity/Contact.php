@@ -51,6 +51,25 @@ class Contact
 
 
     /**
+     * @var \DateTime
+     * @ORM\Column(type="date", nullable=true)
+     */
+    protected $dateNaissance;
+
+    /**
+     * @var string
+     * @ORM\Column(length=10, nullable=true)
+     * @Assert\Choice({"M.", "Mme."})
+     */
+    protected $gentile;
+
+    /**
+     * @var string
+     * @ORM\Column(type="simple_array", nullable=true)
+     */
+    protected $hobbies;
+
+    /**
      * Get id
      *
      * @return int
@@ -131,5 +150,78 @@ class Contact
     {
         return $this->email;
     }
-}
 
+
+
+    /**
+     * Set dateNaissance
+     *
+     * @param \DateTime $dateNaissance
+     *
+     * @return Contact
+     */
+    public function setDateNaissance($dateNaissance)
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    /**
+     * Get dateNaissance
+     *
+     * @return \DateTime
+     */
+    public function getDateNaissance()
+    {
+        return $this->dateNaissance;
+    }
+
+    /**
+     * Set gentile
+     *
+     * @param string $gentile
+     *
+     * @return Contact
+     */
+    public function setGentile($gentile)
+    {
+        $this->gentile = $gentile;
+
+        return $this;
+    }
+
+    /**
+     * Get gentile
+     *
+     * @return string
+     */
+    public function getGentile()
+    {
+        return $this->gentile;
+    }
+
+    /**
+     * Set hobbies
+     *
+     * @param array $hobbies
+     *
+     * @return Contact
+     */
+    public function setHobbies($hobbies)
+    {
+        $this->hobbies = $hobbies;
+
+        return $this;
+    }
+
+    /**
+     * Get hobbies
+     *
+     * @return array
+     */
+    public function getHobbies()
+    {
+        return $this->hobbies;
+    }
+}

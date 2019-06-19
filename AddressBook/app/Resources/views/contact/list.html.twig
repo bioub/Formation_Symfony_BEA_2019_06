@@ -12,9 +12,50 @@
                 <td>{{ contact.prenom }} {{ contact.nom }}</td>
                 <td>
                     <a href="{{ path('app_contact_show', {id: contact.id}) }}" class="btn btn-xs btn-primary">Afficher</a>
+                    <a href="{{ path('app_contact_update', {id: contact.id}) }}" class="btn btn-xs btn-warning">Modifier</a>
+                    <a href="{{ path('app_contact_deleteajax', {id: contact.id}) }}" class="btn btn-xs btn-danger">Supprimer</a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+
+        const btnsDelete = Array.from(document.querySelectorAll('.btn-danger'));
+        btnsDelete.forEach((btnDelete) => btnDelete.addEventListener('click', async (event) => {
+            event.preventDefault();
+            const href = event.target.href;
+            const res = await fetch(href, {method: 'DELETE'});
+            const contact = await res.json();
+
+            const alertElement = document.createElement('div');
+            alertElement.className = 'alert alert-success';
+            alertElement.innerText = contact.prenom + ' a bien été supprimé';
+
+            const h2 = document.querySelector('h2');
+            h2.parentNode.insertBefore(alertElement, h2);
+
+            const tr = event.target.parentNode.parentNode;
+            tr.parentNode.removeChild(tr);
+        }));
+
+
+/*
+        $('.btn-danger').click(async (event) => {
+            event.preventDefault();
+            const href = event.target.href;
+            const contact = await $.ajax(href, {method: 'DELETE'});
+
+            $('<div class="alert alert-success"></div>')
+                .html(contact.prenom + ' a bien été supprimé')
+                .insertBefore('h2');
+
+            $(event.target.parentNode.parentNode).remove();
+        });
+*/
+    </script>
 {% endblock %}

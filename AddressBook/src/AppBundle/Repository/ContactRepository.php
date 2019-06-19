@@ -10,4 +10,7 @@ namespace AppBundle\Repository;
  */
 class ContactRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByPrenom($prenom) {
+       return $this->findBy(['prenom' => $prenom]);
+    }
 }

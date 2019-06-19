@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Societes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Ville</th>
+                <th>Cp</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for societe in societes %}
+            <tr>
+                <td><a href="{{ path('app_societe_show', { 'id': societe.id }) }}">{{ societe.id }}</a></td>
+                <td>{{ societe.nom }}</td>
+                <td>{{ societe.ville }}</td>
+                <td>{{ societe.cp }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('app_societe_show', { 'id': societe.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}
