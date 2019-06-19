@@ -34,8 +34,8 @@ class ContactType extends AbstractType
             ->add('gentile', ChoiceType::class, [
                 'label' => 'Gentilé',
                 'choices' => [
-                    'M.' => 'Monsieur',
-                    'Mme.' => 'Madame'
+                    'Monsieur' => 'M.',
+                    'Madame' => 'Mme.',
                 ]
             ])
             ->add('societe');
